@@ -17,11 +17,12 @@ from base.func_chengyu import cy
 from base.func_news import News
 from base.func_tigerbot import TigerBot
 from base.func_xinghuo_web import XinghuoWeb
+from base.func_bncr import Bncr
 from configuration import Config
 from constants import ChatType
 from job_mgmt import Job
 
-__version__ = "39.2.4.0"
+__version__ = "39.3.5.0"
 
 
 class Robot(Job):
@@ -48,6 +49,8 @@ class Robot(Job):
                 self.chat = BardAssistant(self.config.BardAssistant)
             elif chat_type == ChatType.ZhiPu.value and ZhiPu.value_check(self.config.ZhiPu):
                 self.chat = ZhiPu(self.config.ZhiPu)
+            elif chat_type == ChatType.Bncr.value and Bncr.value_check(self.config.Bncr):
+                self.chat = Bncr(self.config.Bncr)
             else:
                 self.LOG.warning("未配置模型")
                 self.chat = None
@@ -64,6 +67,8 @@ class Robot(Job):
                 self.chat = BardAssistant(self.config.BardAssistant)
             elif ZhiPu.value_check(self.config.ZhiPu):
                 self.chat = ZhiPu(self.config.ZhiPu)
+            elif Bncr.value_check(self.config.Bncr):
+                self.chat = Bncr(self.config.Bncr)
             else:
                 self.LOG.warning("未配置模型")
                 self.chat = None
@@ -113,11 +118,12 @@ class Robot(Job):
     def toChitchat(self, msg: WxMsg) -> bool:
         """闲聊，接入 ChatGPT
         """
+        print(msg.content)
         if not self.chat:  # 没接 ChatGPT，固定回复
             rsp = "你@我干嘛？"
         else:  # 接了 ChatGPT，智能回复
             q = re.sub(r"@.*?[\u2005|\s]", "", msg.content).replace(" ", "")
-            rsp = self.chat.get_answer(q, (msg.roomid if msg.from_group() else msg.sender))
+            rsp = self.chat.get_answer(q, (msg.roomid if msg.from_group() else msg.sender), msgInfo=msg)
 
         if rsp:
             if msg.from_group():
@@ -127,7 +133,8 @@ class Robot(Job):
 
             return True
         else:
-            self.LOG.error(f"无法从 ChatGPT 获得答案")
+            if isinstance(self.chat, Bncr) == False:
+                self.LOG.error(f"无法从 {type(self.chat)} 获得答案")
             return False
 
     def processMsg(self, msg: WxMsg) -> None:
@@ -138,7 +145,6 @@ class Robot(Job):
         receivers = msg.roomid
         self.sendTextMsg(content, receivers, msg.sender)
         """
-
         # 群聊消息
         if msg.from_group():
             # 如果在群里被 @
