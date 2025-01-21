@@ -29,7 +29,7 @@ def weather_report(robot: Robot) -> None:
 
 def main(chat_type: int):
     config = Config()
-    wcf = Wcf(config.Wcf.host)
+    wcf = Wcf(config.Wcf["host"])
 
     def handler(sig, frame):
         wcf.cleanup()  # 退出前清理环境
