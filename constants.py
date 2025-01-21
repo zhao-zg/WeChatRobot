@@ -14,7 +14,7 @@ class ChatType(IntEnum):
     @staticmethod
     def is_in_chat_types(chat_type: int) -> bool:
         if chat_type in [ChatType.TIGER_BOT.value, ChatType.CHATGPT.value,
-                         ChatType.XINGHUO_WEB.value, ChatType.CHATGLM.value,
+                         ChatType.XINGHUO_WEB.value, 
                          ChatType.BardAssistant.value, ChatType.ZhiPu.value, ChatType.Bncr.value]:
             return True
         return False
