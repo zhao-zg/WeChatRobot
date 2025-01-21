@@ -84,5 +84,7 @@ zhipu:  # -----zhipu配置这行不填-----
   model:   # 模型类型
 bncr:  # -----bncr配置这行不填-----
   api_url:  http://192.168.10.3:9904/api/bot/wxferry  #api地址
+wcf:  # -----wcf_host配置这行不填-----
+  host:  192.168.10.3  #wcf地址
 api_server: # -----api_server配置这行不填-----
   port: 19904 #api端口

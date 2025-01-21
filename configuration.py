@@ -39,3 +39,4 @@ class Config(object):
         self.ZhiPu = yconfig.get("zhipu", {})
         self.Bncr = yconfig.get("bncr", {})
         self.API_SERVER = yconfig.get("api_server", {})
+        self.Wcf = yconfig.get("wcf", {})
