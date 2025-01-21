@@ -7,7 +7,6 @@ class ChatType(IntEnum):
     TIGER_BOT = 1  # TigerBot
     CHATGPT = 2  # ChatGPT
     XINGHUO_WEB = 3  # 讯飞星火
-    CHATGLM = 4  # ChatGLM
     BardAssistant = 5  # Google Bard
     ZhiPu = 6  # ZhiPu
     Bncr = 7  # Bncr

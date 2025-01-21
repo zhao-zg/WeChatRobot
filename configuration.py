@@ -34,7 +34,6 @@ class Config(object):
         self.CHATGPT = yconfig.get("chatgpt", {})
         self.TIGERBOT = yconfig.get("tigerbot", {})
         self.XINGHUO_WEB = yconfig.get("xinghuo_web", {})
-        self.CHATGLM = yconfig.get("chatglm", {})
         self.BardAssistant = yconfig.get("bard", {})
         self.ZhiPu = yconfig.get("zhipu", {})
         self.Bncr = yconfig.get("bncr", {})
